@@ -47,8 +47,6 @@ import Signal (setupSignalHandler)
 -- | The main entry point
 main :: IO ()
 main = do
-  initThreads
-  d <- openDisplay ""
   args <- getArgs
   (o,file) <- getOpts args
   (c,defaultings) <- case file of
@@ -59,6 +57,12 @@ main = do
     "Fields missing from config defaulted: " ++ intercalate "," defaultings
 
   conf  <- doOpts c o
+  defaultMain conf
+
+defaultMain :: Config -> IO ()
+defaultMain conf = do
+  initThreads
+  d <- openDisplay ""
   fs    <- initFont d (font conf)
   fl    <- mapM (initFont d) (additionalFonts conf)
   cls   <- mapM (parseTemplate conf) (splitTemplate conf)
