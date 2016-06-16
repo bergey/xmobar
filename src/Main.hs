@@ -20,7 +20,7 @@ module Main ( -- * Main Stuff
             , readDefaultConfig
             ) where
 
-import Xmobar
+import X11
 import Parsers
 import Config
 import XUtil

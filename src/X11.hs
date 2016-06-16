@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 -----------------------------------------------------------------------------
 -- |
--- Module      :  Xmobar
+-- Module      :  X11
 -- Copyright   :  (c) 2011, 2012, 2013, 2014, 2015 Jose Antonio Ortega Ruiz
 --                (c) 2007 Andrea Rossato
 -- License     :  BSD-style (see LICENSE)
@@ -14,7 +14,7 @@
 --
 -----------------------------------------------------------------------------
 
-module Xmobar
+module X11
     ( -- * Main Stuff
       -- $main
       X , XConf (..), runX
