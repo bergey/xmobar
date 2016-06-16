@@ -25,6 +25,7 @@ import Control.Monad
 import Text.Read
 import Config (runnableTypes)
 import Commands
+import Plugins.Kbd ()
 
 data Runnable = forall r . (Exec r, Read r, Show r) => Run r
 

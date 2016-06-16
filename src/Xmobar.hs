@@ -1,0 +1,3 @@
+-- |
+
+module Xmobar where

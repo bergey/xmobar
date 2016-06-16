@@ -13,7 +13,7 @@ license-file:       license
 author:             Andrea Rossato and Jose A. Ortega Ruiz
 maintainer:         Jose A. Ortega Ruiz <jao@gnu.org>
 bug-reports:        https://github.com/jaor/xmobar/issues
-cabal-version:      >= 1.6
+cabal-version:      >= 1.10
 build-type:         Simple
 
 extra-source-files: readme.md, news.md,
@@ -81,13 +81,11 @@ flag with_uvmeter
 flag with_conduit
   description: Use http-conduits for getting weather data
   default: False
-  
-executable xmobar
-    hs-source-dirs:     src
-    main-is:            Main.hs
-    other-modules:
-      X11, Actions, Bitmap, Config, Parsers, Commands, Localize,
-      XUtil, XPMFile, StatFS, Runnable, ColorCache, Window, Signal,
+
+library
+    exposed-modules: Xmobar, X11, Parsers, Config, XUtil,
+      Actions, Bitmap, Commands, Localize,
+      XPMFile, StatFS, Runnable, ColorCache, Window, Signal,
       Plugins, Plugins.BufferedPipeReader,
       Plugins.CommandReader, Plugins.Date, Plugins.EWMH,
       Plugins.PipeReader, Plugins.MarqueePipeReader,
@@ -103,11 +101,8 @@ executable xmobar
       Plugins.Monitors.Uptime, Plugins.Monitors.Weather,
       Plugins.Monitors.Bright, Plugins.Monitors.CatInt,
       Plugins.Monitors.UVMeter
-
-    ghc-prof-options:   -prof -auto-all
-    ghc-options: -funbox-strict-fields -Wall -fno-warn-unused-do-bind
-    extra-libraries: Xrandr Xrender
-
+    hs-source-dirs: src
+    default-language: Haskell2010
     build-depends:
       base == 4.*,
       containers,
@@ -125,6 +120,10 @@ executable xmobar
       parsec == 3.1.*,
       HTTP >= 4000.2.4,
       stm >= 2.3 && < 2.5
+
+    ghc-prof-options:   -prof -auto-all
+    ghc-options: -funbox-strict-fields -Wall -fno-warn-unused-do-bind
+    extra-libraries: Xrandr Xrender
 
     if flag(with_conduit)
        -- use http-conduit  instead of simple-http
@@ -193,3 +192,30 @@ executable xmobar
 
     if flag(with_uvmeter)
        cpp-options: -DUVMETER
+    
+executable xmobar
+    hs-source-dirs:     src
+    main-is:            Main.hs
+
+    ghc-prof-options:   -prof -auto-all
+    ghc-options: -funbox-strict-fields -Wall -fno-warn-unused-do-bind
+    extra-libraries: Xrandr Xrender
+
+    build-depends:
+      base == 4.*,
+      containers,
+      regex-compat,
+      process,
+      old-locale,
+      bytestring,
+      directory,
+      unix,
+      time,
+      filepath,
+      transformers,
+      X11 >= 1.6.1,
+      mtl >= 2.1 && < 2.3,
+      parsec == 3.1.*,
+      HTTP >= 4000.2.4,
+      stm >= 2.3 && < 2.5,
+      xmobar            
